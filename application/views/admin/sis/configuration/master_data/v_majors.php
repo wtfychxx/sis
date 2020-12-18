@@ -56,9 +56,10 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3"> language </label>
                         <div class="col-lg-9">
-                            <input type="hidden" id="txt70" name="txtinput70">
-                            <select name="txtinput71" id="txt71" class="form-control selectpicker" required>
-                            
+                            <input type="hidden" id="txt70" name="txtinput[70]">
+                            <input type="hidden" id="module_table_id" name="module_table_id">
+                            <select name="txtinput[71]" id="txt71" class="form-control selectpicker" required>
+
                             </select>
                         </div>
                     </div>
@@ -66,14 +67,14 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3"> Name </label>
                         <div class="col-lg-9">
-                            <input type="text" name="txtinput72" class="form-control" id="txt72" maxlength="100" required>
+                            <input type="text" name="txtinput[72]" class="form-control" id="txt72" maxlength="100" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3"> Description </label>
                         <div class="col-lg-9">
-                            <textarea name="txtinput73" id="txt73" cols="30" rows="3" class="form-control"></textarea>
+                            <textarea name="txtinput[73]" id="txt73" cols="30" rows="3" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -88,80 +89,112 @@
 </div>
 
 <script>
-    function get_data(){
+    let module_table = '<?= $module_table_id ?>';
+    function get_data() {
         $('.main').show();
         $.ajax({
-            url: "<?= site_url() ?>admin/sis/configuration/master_data/majors" + '/ajx_data_put',
+            url: "http://127.0.0.1:70/api/MasterData",
             type: 'POST',
             dataType: 'JSON',
-            success: function(data){
+            data: JSON.stringify({
+                "module_table__id": module_table
+            }),
+            success: function(data) {
                 $('.content-replace').show();
                 $('#table_data').hide();
                 $('.main').hide();
                 var isDataTable = $.fn.DataTable.isDataTable('#table_data');
-                if(isDataTable){
+                if (isDataTable) {
                     $('#table_data').DataTable().clear().destroy();
                 }
-                if(data.length > 0){
+                if (data.result != null) {
                     var html = '';
                     var i;
                     $('.content-replace').hide();
                     $('#table_data').show();
-                    for(i = 0; i < data.length; i++){
-                        html += '<tr>'+
-                                '<td>'+data[i]['language']+'</option>'+
-                                '<td><a href="javascript:void(0)" class="item-edit" data-id="'+data[i]['id']+'" data-language="'+data[i]['language__id']+'">'+data[i]['name']+'</a></td>'+
-                                '<td>'+data[i]['description']+'</td>'+
-                                '<td><a href="javascript:void(0)" class="item-delete" data-id="'+data[i]['id']+'"> Delete </a></td>'+
-                                '</tr>';
+                    for (i = 0; i < data.result.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + data.result[i]['language'] + '</option>' +
+                            '<td><a href="javascript:void(0)" class="item-edit" data-id="' + data.result[i]['id'] + '" data-language="' + data.result[i]['language__id'] + '">' + data.result[i]['name'] + '</a></td>' +
+                            '<td>' + data.result[i]['description'] + '</td>' +
+                            '<td><a href="javascript:void(0)" class="item-delete" data-id="' + data.result[i]['id'] + '" data-language="'+data.result[i]['language__id']+'"> Delete </a></td>' +
+                            '</tr>';
                     }
 
                     $('#show_data').html(html);
                     $('#table_data').dataTable({
-                        // "order": [[1, 'asc']],
-                        "order" : false,
+                        "order": false,
                         destroy: true
                     });
+                }else{
+                    $('#show_data').html('<center>'+data.message+'</td>');
                 }
             }
         });
     }
-    $(document).ready(function(){
+    $(document).ready(function() {
         get_data();
 
         var id = '';
         var language;
+        let object = {};
 
-        $('#btn_save').on('click', function(){
+        $('#module_table_id').val(module_table);
+        
+        $('#btn_save').on('click', function() {
             id = '';
             language = '';
         });
 
-        $('#show_data').on('click', '.item-edit', function(){
+        $('#show_data').on('click', '.item-edit', function() {
             id = $(this).data('id');
             language = $(this).data('language')
             $('#modalForm').modal('show');
         });
 
-        $('#modalForm').on('shown.bs.modal', function(){
+        $('#modalForm').on('shown.bs.modal', function() {
             $('#modal')[0].reset();
             $('input[type=hidden]').val('');
-            loadcombo('', '<?= site_url() ?>admin/sis/configuration/master_data/majors/ajx_live_combo_put', 'language', '', '#txt71');
-            if(id != ''){
-                modal_data_put('modal', '<?= site_url() ?>admin/sis/configuration/master_data/majors/ajx_modal_data_put', id, language, '', 'majors');
+            loadcombo('', 'http://127.0.0.1:70/api/getCombo', 'language', '', '#txt71');
+            $('#module_table_id').val(module_table);
+            if (id != '') {
+                object = {
+                    language__id: language,
+                    id: id
+                };
+                modal_data_put('modal', 'http://127.0.0.1:70/api/MasterData/modalDataPut', object, '', 'salutation', 'POST');
+                object = '';
+            }
+
+        });
+
+        $('#txt71').on('change', function(){
+            if($(this).val() != ''){
+                $.getJSON('http://127.0.0.1:70/api/MasterData/checkDataWithLanguage', function(data){
+                    Swal.fire({
+                        icon: data[1][2],
+                        title: data[1][0]
+                    });
+                });
             }
         });
 
-        $('#show_data').on('click', '.item-delete', function(){
-            var id = $(this).data('id');
-            delete_data('<?= site_url() ?>admin/sis/configuration/master_data/majors/ajx_delete_data/'+id, false);
+        $('#show_data').on('click', '.item-delete', function() {
+            object = {
+                id: $(this).data('id'),
+                language: $(this).data('language')
+            }
+            delete_data('http://127.0.0.1:70/api/MasterData/deleteData', object, false);
         });
 
-        $('#btn_modal_save').on('click', function(e){
+        $('#btn_modal_save').on('click', function(e) {
             $('#modal').validate({
-                submitHandler: function(){
+                submitHandler: function() {
                     e.preventDefault();
-                    form_validate('modal', '#modal', '<?= site_url() ?>admin/sis/configuration/master_data/majors/ajx_modal_insert', $('#modal').serialize(), false, '#modalForm');
+                    var methods = ($('#txt70').val() == '') ? 'POST' : 'PUT';
+                    object = objectivityForm($('#modal').serializeArray());
+                    form_validate('modal', '#modal', 'http://127.0.0.1:70/api/MasterData/createData', object, false, '#modalForm', methods);
+                    object = '';
                 }
             });
         });

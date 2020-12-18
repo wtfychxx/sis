@@ -3,8 +3,9 @@
     <!-- main menu header-->
     <!-- Sidebar Header starts-->
     <div class="sidebar-header">
-      <div class="logo clearfix"><a href="desktop" class="logo-text float-left">
-          <div class="logo-img"><img src="<?= base_url() ?>assets/img/logo.png"/></div><span class="text align-middle">SIS</span></a><a id="sidebarToggle" href="javascript:;" class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="expanded" class="toggle-icon ft-toggle-right"></i></a><a id="sidebarClose" href="javascript:;" class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-x"></i></a></div>
+      <div class="logo clearfix"><a href="<?= base_url() ?>admin/desktop" class="logo-text float-left">
+          <div class="logo-img"><img src="<?= base_url() ?>assets/img/logo.png" data-url="<?= base_url() ?>" /></div><span class="text align-middle">SIS</span>
+        </a><a id="sidebarToggle" href="javascript:;" class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="expanded" class="toggle-icon feather-toggle-right"></i></a><a id="sidebarClose" href="javascript:;" class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="feather-x"></i></a></div>
     </div>
     <!-- Sidebar Header Ends-->
     <!-- / main menu header-->
@@ -12,50 +13,90 @@
     <div class="sidebar-content">
       <div class="nav-container">
         <ul id="main-menu-navigation" data-menu="menu-navigation" data-scroll-to-active="true" class="navigation navigation-main">
-            <li class="nav-item"><a href="<?= base_url('admin/desktop') ?>"><i class="ft-home"></i><span class="menu-title"> Dashboard </span></a></li>
-            <li class="has-sub nav-item"><a href="javascript:void(0)"><i class="ft-user"></i><span class="menu-title"> Employee </span></a>
+          <li class="nav-item"><a href="<?= base_url('admin/desktop') ?>"><i class="feather-home"></i><span class="menu-title"> Dashboard </span></a></li>
+          <li class="has-sub nav-item"><a href="javascript:void(0)"><i class="feather-user"></i><span class="menu-title"> Employee </span></a>
+            <ul class="menu-content">
+              <?php if ($isadmin == 279) { ?>
+                <li class="nav-item"><a href="<?= base_url('admin/sis/employee/add_new') ?>"><i class="feather-circle"></i><span class="menu-title"> Add New </span></a></li>
+                <li class="nav-item"><a href="<?= base_url('admin/sis/employee/active_employee') ?>"><i class="feather-circle"></i><span class="menu-title"> Employee List </span></a></li>
+              <?php } ?>
+              <li class="nav-item"><a href=""><i class="feather-circle"></i><span class="menu-title"> Personal Data </span></a></li>
+            </ul>
+          </li>
+          <?php if ($isadmin == 279) { ?>
+            <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-settings"></i><span data-i18n="" class="menu-title"> Configuration </span></a>
               <ul class="menu-content">
-                <?php if($isadmin == 279){ ?>
-                <li class="nav-item"><a href="<?= base_url('admin/sis/employee/add_new') ?>"><i class="ft-circle"></i><span class="menu-title"> Add New </span></a></li>
-                <li class="nav-item"><a href="<?= base_url('admin/sis/employee/active_employee') ?>"><i class="ft-circle"></i><span class="menu-title"> Employee List </span></a></li>
-                <?php } ?>
-                <li class="nav-item"><a href=""><i class="ft-circle"></i><span class="menu-title"> Personal Data </span></a></li>
+                <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Master Data </span></a>
+                  <ul class="menu-content">
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master/area') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Area </span></a></li>
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/religion') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Religion </span></a></li>
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/marital_status') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Marital Status </span></a></li>
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/salutation') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Salutation </span></a></li>
+                  </ul>
+                </li>
+                <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Education </span></a>
+                  <ul class="menu-content">
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/education/faculty') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Faculty </span></a></li>
+                  </ul>
+                </li>
+                <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Organization </span></a>
+                  <ul class="menu-content">
+                    <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> School </span></a>
+                      <ul class="menu-content">
+                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/organization/school/profile') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Profile </span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Library </span></a>
+                  <ul class="menu-content">
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/book') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Book </span></a></li>
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/genre') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Genre </span></a></li>
+                  </ul>
+                </li>
+                <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Authorization </span></a>
+                  <ul class="menu-content">
+                    <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Group </span></a>
+                      <ul class="menu-content">
+                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/authorization/group/setup') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Setup </span></a></li>
+                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/authorization/group/member') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Member </span></a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/authorization/management_password') ?>" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Reset User </span></a>
+                  </ul>
+                </li>
               </ul>
             </li>
-            <?php if($isadmin == 279){ ?>
-            <li class="has-sub nav-item"><a href="javascript:void(0)"><i class="ft-settings"></i><span data-i18n="" class="menu-title"> Configuration </span></a>
+
+            <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-file-text"></i><span class="menu-title"> Report </span></a>
+              <ul class="menu-content">
+                <li class="nav-item"><a href="<?= base_url() ?>admin/sis/report/summary" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Summary Report </span></a></li>
+              </ul>
+            </li>
+
+          <?php } ?>
+
+          <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-archive"></i><span class="menu-title"> Election </span></a>
+            <ul class="menu-content">
+              <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Master Data </span></a>
                 <ul class="menu-content">
-                    <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Master Data </span></a>
-                      <ul class="menu-content">
-                          <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/area') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Area </span></a></li>
-                          <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/religion') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Religion </span></a></li>
-                          <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/marital_status') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Marital Status </span></a></li>
-                          <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/salutation') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Salutation </span></a></li>
-                      </ul>
-                    </li>
-                    <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Education </span></a>
-                      <ul class="menu-content">
-                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/education/faculty') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Faculty </span></a></li>
-                      </ul>
-                    </li>
-                    <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Library </span></a>
-                      <ul class="menu-content">
-                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/book') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Book </span></a></li>
-                        <li class="nav-item"><a href="<?= base_url('admin/sis/configuration/master_data/genre') ?>" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Genre </span></a></li>
-                      </ul>
-                    </li>
+                  <li class="nav-item"><a href="<?= base_url() ?>admin/sis/election/master_data/type" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Type </span></a></li>
                 </ul>
-            </li>
+              </li>
 
-            <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="ft-file-text"></i><span class="menu-title"> Report </span></a>
-              <ul class="menu-content">
-                <li class="nav-item"><a href="<?= base_url() ?>admin/sis/report/summary" class="menu-item"><i class="ft-circle"></i><span class="menu-title"> Summary Report </span></a></li>
-              </ul>
-            </li>
+              <li class="has-sub nav-item"><a href="javascript:void(0)" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Setup </span></a>
+                <ul class="menu-content">
+                  <li class="nav-item"><a href="<?= base_url() ?>admin/sis/election/setup/form" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Form </span></a></li>
+                  <li class="nav-item"><a href="<?= base_url() ?>admin/sis/election/setup/candidate" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Candidate </span></a></li>
+                  <li class="nav-item"><a href="<?= base_url() ?>admin/sis/election/setup/voters" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Voters </span></a></li>
+                </ul>
+              </li>
 
-            <?php } ?>
+              <li class="nav-item"><a href="<?= base_url() ?>admin/sis/election/vote" class="menu-item"><i class="feather-circle"></i><span class="menu-title"> Vote </span></a></li>
+            </ul>
+          </li>
 
-            <li class="nav-item"><a href="<?= base_url('admin/sis/libraries/home') ?>"><i class="ft-book"></i><span data-i18n="" class="menu-title"> Book-U </span><span class="tag badge badge-danger float-right mr-1 mt-1"> New </span></a></li>
+          <li class="nav-item"><a href="<?= base_url('admin/sis/libraries/home') ?>"><i class="feather-book"></i><span data-i18n="" class="menu-title"> Book-U </span><span class="tag badge badge-danger float-right mr-1 mt-1"> New </span></a></li>
         </ul>
       </div>
     </div>
@@ -66,7 +107,7 @@
     <!-- main menu footer-->
   </div>
 
-  <aside id="notification-sidebar" class="notification-sidebar d-none d-sm-none d-md-block"><a class="notification-sidebar-close"><i class="ft-x font-medium-3"></i></a>
+  <aside id="notification-sidebar" class="notification-sidebar d-none d-sm-none d-md-block"><a class="notification-sidebar-close"><i class="feather-x font-medium-3"></i></a>
     <div class="side-nav notification-sidebar-content">
       <div class="row">
         <div class="col-12 mt-1">
@@ -83,7 +124,7 @@
                   <ul class="timeline">
                     <li class="timeline-line"></li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-purple bg-lighten-1"><i class="ft-shopping-cart"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-purple bg-lighten-1"><i class="feather-shopping-cart"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="deep-purple-text medium-small">just now</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jim Doe Purchased new equipments for zonal office.</p>
                       </div>
@@ -95,37 +136,37 @@
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-success bg-lighten-1"><i class="ft-mic"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-success bg-lighten-1"><i class="feather-mic"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="green-text medium-small">5 Days Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Natalya Parker Send you a voice mail for next conference.</p>
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-warning bg-lighten-1"><i class="ft-map-pin"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-warning bg-lighten-1"><i class="feather-map-pin"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="amber-text medium-small">1 Week Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jessy Jay open a new store at S.G Road.</p>
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-red bg-lighten-1"><i class="ft-inbox"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-red bg-lighten-1"><i class="feather-inbox"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="deep-orange-text medium-small">2 Week Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">voice mail for conference.</p>
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-cyan bg-lighten-1"><i class="ft-mic"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-cyan bg-lighten-1"><i class="feather-mic"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="brown-text medium-small">1 Month Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Natalya Parker Send you a voice mail for next conference.</p>
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-amber bg-lighten-1"><i class="ft-map-pin"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-amber bg-lighten-1"><i class="feather-map-pin"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="deep-purple-text medium-small">3 Month Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jessy Jay open a new store at S.G Road.</p>
                       </div>
                     </li>
                     <li class="timeline-item">
-                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-grey bg-lighten-1"><i class="ft-inbox"></i></span></div>
+                      <div class="timeline-badge"><span data-toggle="tooltip" data-placement="right" title="Portfolio project work" class="bg-grey bg-lighten-1"><i class="feather-inbox"></i></span></div>
                       <div class="col s9 recent-activity-list-text"><a href="javascript:void(0)" class="grey-text medium-small">1 Year Ago</a>
                         <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">voice mail for conference.</p>
                       </div>
@@ -344,7 +385,7 @@
     </div>
   </aside>
 
-  <div class="customizer border-left-blue-grey border-left-lighten-4 d-none d-sm-none d-md-block"><a class="customizer-close"><i class="ft-x font-medium-3"></i></a><a id="rtl-icon" href="https://pixinvent.com/apex-angular-4-bootstrap-admin-template/html-demo-6/" target="_blank" class="bg-dark customizer-toggle"><span class="font-medium-1 white align-middle">RTL</span></a><a id="customizer-toggle-icon" class="customizer-toggle bg-danger"><i class="ft-settings font-medium-4 fa fa-spin white align-middle"></i></a>
+  <div class="customizer border-lefeather-blue-grey border-lefeather-lighten-4 d-none d-sm-none d-md-block"><a class="customizer-close"><i class="feather-x font-medium-3"></i></a><a id="rtl-icon" href="https://pixinvent.com/apex-angular-4-bootstrap-admin-template/html-demo-6/" target="_blank" class="bg-dark customizer-toggle"><span class="font-medium-1 white align-middle">RTL</span></a><a id="customizer-toggle-icon" class="customizer-toggle bg-danger"><i class="feather-settings font-medium-4 fa fa-spin white align-middle"></i></a>
     <div data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a" class="customizer-content p-3 ps-container ps-theme-dark">
       <h4 class="text-uppercase mb-0 text-bold-400">Theme Customizer</h4>
       <p>Customize & Preview in Real Time</p>

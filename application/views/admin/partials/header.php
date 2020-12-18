@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
         .select2 {
-            width:100%!important;
+            width: 100% !important;
         }
 
-        .label-required{
+        .label-required {
             color: red;
         }
     </style>
@@ -29,7 +30,8 @@
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
     <!-- font icons-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fonts/feather/style.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fonts/feather/style.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fonts/feather-icons-web/feather.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fonts/simple-line-icons/style.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fonts/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/vendors/css/perfect-scrollbar.min.css">
@@ -53,7 +55,7 @@
     <script src="<?= base_url() ?>assets/vendors/js/jquery.matchHeight-min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/vendors/js/screenfull.min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/vendors/js/pace/pace.min.js" type="text/javascript"></script>
-    
+
     <!-- BEGIN VENDOR JS-->
     <!-- BEGIN PAGE VENDOR JS-->
     <script src="<?= base_url() ?>assets/vendors/js/moment.min.js" type="text/javascript"></script>
@@ -84,9 +86,11 @@
     <script src="<?= base_url() ?>assets/vendors/js/datatable/datatables.min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/vendors/js/jquery.validate.min.js"></script>
     <script src="<?= base_url() ?>assets/vendors/js/sweetalert2/package/dist/sweetalert2.min.js"></script>
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js" type="text/javascript"></script> -->
     <!-- <script src="<?= base_url() ?>assets/vendors/js/sweetalert2.min.js" type="text/javascript"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
+    
     <script src="<?= base_url() ?>assets/js/app-sidebar.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/js/notification-sidebar.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/js/customizer.js" type="text/javascript"></script>

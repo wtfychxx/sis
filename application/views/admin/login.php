@@ -63,7 +63,7 @@
 
 	<div class="container-fluid" style="min-height: 100vh;">
 		<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
-			<img src="assets/img/logos/sis.png" alt="Responsive Image" class="rounded" style="width: 30%;">
+			<img src="assets/img/logos/SIS.png" alt="Responsive Image" class="rounded" style="width: 60vw">
 		</div>
 	</div>
 
@@ -96,7 +96,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" aria-hidden="true" data-dismiss="modal"> Close </button>
-						<button class="btn btn-primary" id="btn_modal_save" type="submit"> Login </button>
+						<button class="btn btn-info" id="btn_modal_save" type="submit"> Login </button>
 					</div>
 				</form>
 			</div>

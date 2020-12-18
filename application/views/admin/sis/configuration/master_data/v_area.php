@@ -25,9 +25,9 @@
                         <table class="table table-bordered" id="table_data" style="display: none">
                             <thead>
                                 <tr>
-                                    <th> Language </th>
                                     <th> Name </th>
-                                    <th> Description </th>
+                                    <th> Area Type </th>
+                                    <th> Kode Pos </th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -54,10 +54,10 @@
             <form action="" class="form-horizontal" id="modal">
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-3"> language </label>
+                        <label class="col-form-label col-lg-3"> Parent </label>
                         <div class="col-lg-9">
-                            <input type="hidden" id="txt70" name="txtinput70">
-                            <select name="txtinput71" id="txt71" class="form-control selectpicker" required>
+                            <input type="hidden" id="txt70" name="txtinput[70]">
+                            <select name="txtinput[71]" id="txt71" class="form-control selectpicker" required>
                             
                             </select>
                         </div>
@@ -66,14 +66,22 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-3"> Name </label>
                         <div class="col-lg-9">
-                            <input type="text" name="txtinput72" class="form-control" id="txt72" maxlength="100" required>
+                            <input type="text" name="txtinput[72]" class="form-control" id="txt72" maxlength="100" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-3"> Description </label>
+                        <label class="col-form-label col-lg-3"> Area Type </label>
                         <div class="col-lg-9">
-                            <textarea name="txtinput73" id="txt73" cols="30" rows="3" class="form-control"></textarea>
+                            <select name="txtinput[73]" id="txt73" class="form-control selectpicker" requires>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-3"> Postcode </label>
+                        <div class="col-lg-9">
+                            <input type="text" name="txtinput[74]" class="form-control numeric" id="txt74" maxlength="5">
                         </div>
                     </div>
                 </div>
@@ -91,7 +99,7 @@
     function get_data(){
         $('.main').show();
         $.ajax({
-            url: "<?= site_url() ?>admin/sis/configuration/master_data/genre" + '/ajx_data_put',
+            url: "http://127.0.0.1:70/api/Area",
             type: 'POST',
             dataType: 'JSON',
             success: function(data){
@@ -102,17 +110,17 @@
                 if(isDataTable){
                     $('#table_data').DataTable().clear().destroy();
                 }
-                if(data.length > 0){
+                if(data.result.length > 0){
                     var html = '';
                     var i;
                     $('.content-replace').hide();
                     $('#table_data').show();
-                    for(i = 0; i < data.length; i++){
+                    for(i = 0; i < data.result.length; i++){
                         html += '<tr>'+
-                                '<td>'+data[i]['language']+'</option>'+
-                                '<td><a href="javascript:void(0)" class="item-edit" data-id="'+data[i]['id']+'" data-language="'+data[i]['language__id']+'">'+data[i]['name']+'</a></td>'+
-                                '<td>'+data[i]['description']+'</td>'+
-                                '<td><a href="javascript:void(0)" class="item-delete" data-id="'+data[i]['id']+'"> Delete </a></td>'+
+                                '<td><a href="javascript:void(0)" class="item-edit" data-id="'+data.result[i]['id']+'" data-language="'+data.result[i]['language__id']+'">'+data.result[i]['name']+'</option>'+
+                                '<td>'+data.result[i]['area_type']+'</a></td>'+
+                                '<td>'+data.result[i]['postcode']+'</td>'+
+                                '<td><a href="javascript:void(0)" class="item-delete" data-id="'+data.result[i]['id']+'"> Delete </a></td>'+
                                 '</tr>';
                     }
 
@@ -130,6 +138,7 @@
 
         var id = '';
         var language;
+        var object = {};
 
         $('#btn_save').on('click', function(){
             id = '';
@@ -145,22 +154,32 @@
         $('#modalForm').on('shown.bs.modal', function(){
             $('#modal')[0].reset();
             $('input[type=hidden]').val('');
-            loadcombo('', '<?= site_url() ?>admin/sis/configuration/master_data/genre/ajx_live_combo_put', 'language', '', '#txt71');
+            loadcombo('', 'http://127.0.0.1:70/api/getCombo', 'area', '', '#txt71');
+            loadcombo('', 'http://127.0.0.1:70/api/getCombo', 'area_type', '', '#txt73');
+            object = {
+                "id": id
+            }
             if(id != ''){
-                modal_data_put('modal', '<?= site_url() ?>admin/sis/configuration/master_data/genre/ajx_modal_data_put', id, language, '', 'genre');
+                modal_data_put('modal', 'http://127.0.0.1:70/api/Area/modalDataPut', object, '', 'area', 'POST');
+                object = {};
             }
         });
 
         $('#show_data').on('click', '.item-delete', function(){
             var id = $(this).data('id');
-            delete_data('<?= site_url() ?>admin/sis/configuration/master_data/genre/ajx_delete_data/'+id, false);
+            object = {
+                "id" : id
+            }
+            delete_data('http://127.0.0.1:70/api/Area/deleteData', object, false);
         });
 
         $('#btn_modal_save').on('click', function(e){
             $('#modal').validate({
                 submitHandler: function(){
                     e.preventDefault();
-                    form_validate('modal', '#modal', '<?= site_url() ?>admin/sis/configuration/master_data/genre/ajx_modal_insert', $('#modal').serialize(), false, '#modalForm');
+                    var methods = ($('#txt70').val() == '') ? 'POST' : 'PUT';
+                    object = objectivityForm($('#modal').serializeArray());
+                    form_validate('modal', '#modal', 'http://127.0.0.1:70/api/Area/createData', object, false, '#modalForm', methods);
                 }
             });
         });

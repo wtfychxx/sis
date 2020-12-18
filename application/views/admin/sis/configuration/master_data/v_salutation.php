@@ -168,31 +168,6 @@
 
         });
 
-        $('#txt71').on('change', function(){
-            if($(this).val() != '' && $('#txt70').val() != ''){
-                object = {
-                    id: $('#txt70').val(),
-                    language: $(this).val()
-                }
-                $.ajax({
-                    url: 'http://127.0.0.1:70/api/MasterData/checkDataWithLanguage',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: JSON.stringify(object),
-                    success: function(data){
-                        if(data[1][1] != 'ok'){
-                            Swal.fire({
-                                icon: data[1][2],
-                                title: data[1][0]
-                            });
-                            object = '';
-                            return false;
-                        }
-                    }
-                });
-            }
-        });
-
         $('#show_data').on('click', '.item-delete', function() {
             object = {
                 id: $(this).data('id'),

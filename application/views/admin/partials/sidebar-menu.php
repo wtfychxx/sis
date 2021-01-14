@@ -434,11 +434,11 @@
       <h6 class="text-center text-bold-500 mb-3 text-uppercase tl-color-options d-none">Background Colors</h6>
       <div class="cz-tl-bg-color d-none">
         <div class="row p-1">
-          <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-hibiscus" class="bg-hibiscus d-block rounded-circle"></span></div>
+          <div class="col"><span style="width:20px; height:20px;" data-bg-color="hibiscus" class="bg-hibiscus d-block rounded-circle"></span></div>
           <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-purple-pizzazz" class="bg-purple-pizzazz d-block rounded-circle"></span></div>
           <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-blue-lagoon" class="bg-blue-lagoon d-block rounded-circle"></span></div>
-          <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-electric-violet" class="bg-electric-violet d-block rounded-circle"></span></div>
-          <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-portage" class="bg-portage d-block rounded-circle"></span></div>
+          <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-electric-viloet" class="bg-electric-violet d-block rounded-circle"></span></div>
+          <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-protage" class="bg-portage d-block rounded-circle"></span></div>
           <div class="col"><span style="width:20px; height:20px;" data-bg-color="bg-tundora" class="bg-tundora d-block rounded-circle"></span></div>
         </div>
       </div>

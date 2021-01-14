@@ -28,8 +28,8 @@
 	});
 
 	// method to save setting template
-	let bgImage, bgColor, theme, bodyBg, imageStatus, bodyBgColor,
-    getBgImage, getBgColor, getTheme, getBodyBg, getImageStatus, getBodyBgColor;
+	let bgImage, bgColor, theme, bodyBg, imageStatus,
+    getBgImage, getBgColor, getTheme, getBodyBg, getImageStatus;
 
     if(localStorage.getItem("bg-image") !== null){
         getBgImage = localStorage.getItem("bg-image");
@@ -51,10 +51,6 @@
     if(localStorage.getItem("bg-color") !== null){
         getBgColor = localStorage.getItem("bg-color");
         $('.app-sidebar').attr('data-background-color', getBgColor);
-        // $('.cz-bg-color span')
-        //     .closest(".cz-bg-color")
-        //     .find("span.selected")
-        //     .removeClass("selected");
     }
 
     if(localStorage.getItem("theme") !== null){
@@ -78,11 +74,6 @@
 
             getBodyBg = localStorage.getItem("body-background");
             $('body').addClass(getBodyBg);
-            $(".cz-tl-bg-image")
-                .find(".selected")
-                .removeClass("selected");
-        
-            $(".cz-tl-bg-image").find('.'+getBodyBg).addClass('selected');
         }
     }
 
@@ -99,21 +90,6 @@
                 $('.sidebar-background').css('background-image', "none");
                 $('.cz-bg-image-display').prop('checked', false);
             }
-        }
-    }
-
-    if(localStorage.getItem("body-background-color") !== null){
-        if($('body').hasClass('layout-transparent')){
-            $('body').removeClass('bg-hibiscus bg-purple-pizzazz bg-blue-lagoon bg-electric-violet bg-portage bg-tundora bg-glass-1 bg-glass-2 bg-glass-3 bg-glass-4');
-
-            getBodyBgColor = localStorage.getItem('body-background-color');
-            console.log(getBodyBgColor);
-            $('body').addClass(getBodyBgColor);
-            $(".cz-tl-bg-color")
-                .find(".selected")
-                .removeClass("selected");
-        
-            $(".cz-tl-bg-color").find('.'+getBodyBgColor).addClass('selected');
         }
     }
 
@@ -154,10 +130,8 @@
         }
     });
 
-    let url, segment, file, className;
-
     $('.cz-tl-bg-image .col-sm-3 img.rounded').on('click', function(){
-        localStorage.removeItem('body-background-color');
+        var url, segment, file, className;
         url = $(this).attr('src');
         segment = url.split('/');
         file = segment.pop();
@@ -165,12 +139,6 @@
 
         bodyBg = className[0];
         localStorage.setItem("body-background", bodyBg);
-    });
-
-    $('.customizer .cz-tl-bg-color .col .rounded-circle').on('click', function(){
-        localStorage.removeItem('body-background');        
-        bodyBgColor = $(this).attr('data-bg-color');
-        localStorage.setItem('body-background-color', bodyBgColor);
     });
 
     $(".cz-bg-image-display").on("click", function() {

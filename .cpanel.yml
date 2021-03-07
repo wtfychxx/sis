@@ -2,5 +2,9 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/dynasisw/public_html/sis_new/
-    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
     - /bin/cp style.css $DEPLOYPATH
+    - /bin/cp -R application $DEPLOYPATH
+    - /bin/cp -R assets $DEPLOYPATH
+    - /bin/cp -R system $DEPLOYPATH
+    - /bin/cp -R user_guide $DEPLOYPATH

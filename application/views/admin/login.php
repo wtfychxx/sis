@@ -45,7 +45,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a href="javascript:void(0)" class="nav-link">Home <span class="sr-only">(current)</span></a>
+					<a href="javascript:void(0)" class="nav-link">HomeS <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
 					<a href="<?= site_url('/book') ?>" class="nav-link">About </a>
